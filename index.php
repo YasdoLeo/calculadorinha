@@ -1,104 +1,90 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
     <style>
         body {
+       background-image: url(https://wallpapers.com/images/hd/hello-kitty-pc-uoaytfzu54x4f6e9.jpg);
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .calculadora {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            width: 300px;
-        }
-        h2 {
             text-align: center;
-            margin-bottom: 20px;
         }
-        input, select {
-            width: 100%;
+        .container {
+            
+            background-color: rgb(255, 181, 209);
+            color: #;
+            max-width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 5px solid #fff;
+            border-radius: 30px;
+           
+            box-shadow: 10px 10px 10px rgb(0, 0, 0);
+        }
+        input {
+            width: 90%;
+            margin: 5px 0;
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
         }
-        .resultado {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 18px;
-            color: #333;
+        select{
+            border: 10px;
+             width: 50%;
+            margin: 5px 0;
+            padding: 10px;
         }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
+        button{
+             width: 60%;
+            margin: 5px 0;
+            padding: 10px;
+
         }
     </style>
 </head>
 <body>
-    <div class="calculadora">
-        <h2>Calculadora PHP</h2>
+    <div class="container">
+        <h2>Calculadora</h2>
         <form method="post">
-            <input type="number" name="num1" step="any" placeholder="Digite o primeiro número" required>
-            <input type="number" name="num2" step="any" placeholder="Digite o segundo número" required>
-            <select name="operador" required>
-                <option value="">Selecione uma operação</option>
-                <option value="soma">Soma (+)</option>
-                <option value="subtracao">Subtração (-)</option>
-                <option value="multiplicacao">Multiplicação (×)</option>
-                <option value="divisao">Divisão (÷)</option>
+            <input type="number" name="num1" placeholder="Digite o primeiro número" required>
+            <input type="number" name="num2" placeholder="Digite o segundo número" required>
+            <select name="operacao">
+                <option value="soma">+</option>
+                <option value="subtracao">-</option>
+                <option value="multiplicacao">*</option>
+                <option value="divisao">/</option>
             </select>
             <button type="submit">Calcular</button>
         </form>
 
-        <div class="resultado">
-            <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    $num1 = floatval($_POST["num1"]);
-                    $num2 = floatval($_POST["num2"]);
-                    $operador = $_POST["operador"];
-                    $resultado = "";
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $num1 = $_POST["num1"];
+            $num2 = $_POST["num2"];
+            $operacao = $_POST["operacao"];
+            $resultado = 0;
 
-                    switch ($operador) {
-                        case "soma":
-                            $resultado = $num1 + $num2;
-                            break;
-                        case "subtracao":
-                            $resultado = $num1 - $num2;
-                            break;
-                        case "multiplicacao":
-                            $resultado = $num1 * $num2;
-                            break;
-                        case "divisao":
-                            if ($num2 != 0) {
-                                $resultado = $num1 / $num2;
-                            } else {
-                                $resultado = "Erro: divisão por zero!";
-                            }
-                            break;
-                        default:
-                            $resultado = "Operação inválida.";
+            switch ($operacao) {
+                case "soma":
+                    $resultado = $num1 + $num2;
+                    break;
+                case "subtracao":
+                    $resultado = $num1 - $num2;
+                    break;
+                case "multiplicacao":
+                    $resultado = $num1 * $num2;
+                    break;
+                case "divisao":
+                    if ($num2 != 0) {
+                        $resultado = $num1 / $num2;
+                    } else {
+                        echo "<p style='color: red;'>Erro: Divisão por zero!</p>";
+                        exit;
                     }
-
-                    echo "<strong>Resultado: </strong>" . $resultado;
-                }
-            ?>
-        </div>
+                    break;
+            }
+            echo "<h3>Resultado: $resultado</h3>";
+        }
+        ?>
     </div>
 </body>
 </html>
